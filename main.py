@@ -35,21 +35,23 @@ def read_world_id(input_file: str) -> str | None:
         print(f"Failed to read XMP metadata from {input_file}: {e}")
         return None
 
-    if xmp is None:
+    # if xmp is None:
+    #    return None
+
+    if (world_id := xmp.get("Xmp.vrc.WorldID")) is None:
         return None
 
-    world_id = xmp.get("Xmp.vrc.WorldID")
-    if world_id is None:
-        return None
-
-    return world_id
+    return str(world_id)
 
 
 def open_world_page(world_id: str) -> None:
+    # return if world_id is None or other types
+    if world_id.__class__ is not str:
+        return
     # open web page to join the world
     url = f"https://vrchat.com/home/world/{world_id}"
     print(f"Opening {url}")
-    webbrowser.open(url)
+    _ = webbrowser.open(url)
 
 
 if __name__ == "__main__":
