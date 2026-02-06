@@ -1,2 +1,2 @@
 @echo off
-py "%~dp0main.py" %*
+uv run "%~dp0main.py" %*
